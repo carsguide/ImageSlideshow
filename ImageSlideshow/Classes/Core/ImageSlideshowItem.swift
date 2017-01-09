@@ -24,6 +24,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     /// If set to true image is initially zoomed in
     open var zoomInInitially = false
     
+    open var spinner: UIActivityIndicatorView
+    
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
     
@@ -37,6 +39,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     init(image: InputSource, zoomEnabled: Bool) {
         self.zoomEnabled = zoomEnabled
         self.image = image
+        self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray);
+        self.spinner.hidesWhenStopped = true;
         
         super.init(frame: CGRect.null)
 
@@ -58,6 +62,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         tapRecognizer.numberOfTapsRequired = 2
         imageView.addGestureRecognizer(tapRecognizer)
         gestureRecognizer = tapRecognizer
+        
+        
+        self.imageView.addSubview(self.spinner);
+        
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -89,15 +97,19 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         
         contentSize = imageView.frame.size
         maximumZoomScale = calculateMaximumScale()
+        
+        self.setSpinnerToCenter();
     }
 
     /// Request to load Image Source to Image View
     func loadImage() {
         if self.imageView.image == nil {
+            self.spinner.startAnimating();
             imageReleased = false
             image.load(to: self.imageView) { image in
                 // set image to nil if there was a release request during the image load
                 self.imageView.image = self.imageReleased ? nil : image
+                self.spinner.stopAnimating();
             }
         }
     }
@@ -175,6 +187,10 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         intendHorizon = intendHorizon > 0 ? intendHorizon : 0
         intendVertical = intendVertical > 0 ? intendVertical : 0
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
+    }
+    
+    fileprivate func setSpinnerToCenter() {
+        self.spinner.frame = CGRect(x: screenSize().width/2 - 18 , y: self.imageView.frame.height/2 - 18, width: 35, height: 35);
     }
     
     private func isFullScreen() -> Bool {
