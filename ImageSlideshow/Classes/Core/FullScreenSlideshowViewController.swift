@@ -87,6 +87,8 @@ open class FullScreenSlideshowViewController: UIViewController {
             pageSelected(slideshow.currentPage)
         }
         
+        UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation");
+        
         dismiss(animated: true, completion: nil)
     }
 }
