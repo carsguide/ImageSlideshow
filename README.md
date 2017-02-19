@@ -21,14 +21,14 @@ ImageSlideshow is available through [CocoaPods](http://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'ImageSlideshow', '~> 1.0.0'
+pod 'ImageSlideshow', '~> 1.1.0'
 ```
 
 ### Carthage
-To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile: 
+To integrate ImageSlideshow into your Xcode project using Carthage, specify it in your Cartfile:
 
 ```ruby
-github "zvonicek/ImageSlideshow" "1.0.0"
+github "zvonicek/ImageSlideshow" "1.1.0"
 ```
 
 Carthage does not include InputSources for external providers (due to dependency on those providers) so you need to grab the one you need from `ImageSlideshow/Classes/InputSources` manually.
@@ -40,12 +40,12 @@ Alternatively can also grab the whole `ImageSlideshow` directory and copy it to 
 
 **Note on Swift 2.3 and Swift 3 support**
 
-Version 1.0 supports Swift 3. For Swift 2.2 and Swift 2.3 compatible code use version 0.6 or branch *swift-2.3*. 
+Version 1.0 supports Swift 3. For Swift 2.2 and Swift 2.3 compatible code use version 0.6 or branch *swift-2.3*.
 
 
 ## 🔨 How to use
 
-Add ImageSlideshow view to your view hiearchy either in Interface Builder or in code. 
+Add ImageSlideshow view to your view hiearchy either in Interface Builder or in code.
 
 ### Loading images
 
@@ -57,14 +57,16 @@ Set images by using ```setImageInputs``` method on ```ImageSlideshow``` instance
 | [AFNetworking](https://github.com/AFNetworking/AFNetworking)  | AFURLSource      | `pod "ImageSlideshow/AFURL"`      |
 | [SDWebImage](https://github.com/rs/SDWebImage)                | SDWebImageSource | `pod "ImageSlideshow/SDWebImage"` |
 | [Kingfisher](https://github.com/onevcat/Kingfisher)           | KingfisherSource | `pod "ImageSlideshow/Kingfisher"` |
+| [Parse](https://github.com/ParsePlatform/Parse-SDK-iOS-OSX)   | ParseSource      | `pod "ImageSlideshow/ParseSource"`|
 
 
 ```swift
 slideshow.setImageInputs([
-  ImageSource(image: UIImage(named: "myImage"))!, 
+  ImageSource(image: UIImage(named: "myImage"))!,
   ImageSource(image: UIImage(named: "myImage2"))!,
   AlamofireSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
-  KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080")
+  KingfisherSource(urlString: "https://images.unsplash.com/photo-1432679963831-2dab49187847?w=1080"),
+  ParseSource(file: PFFile(name:"image.jpg", data:data))
 ])
 ```
 
@@ -72,14 +74,16 @@ slideshow.setImageInputs([
 
 Behaviour is configurable by those properties:
 
-- ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture
-- ```zoomEnabled``` - enables zooming
-- ```circular``` - enables circular scrolling
-- ```pageControlPosition``` - configures position of UIPageControll (hidden, inside scroll view or under scroll view)
-- ```contentScaleMode``` - configures the scaling (UIViewContentMode.ScaleAspectFit by default)
-- ```draggingEnabled``` - enables dragging
+- ```slideshowInterval``` - in case you want automatic slideshow, set up the interval between sliding to next picture (default `0` – disabled)
+- ```zoomEnabled``` - enables zooming (default `false`)
+- ```circular``` - enables circular scrolling (default `true`)
+- ```pageControlPosition``` - configures position of UIPageControl (default `insideScrollView`, also `hidden`, `underScrollView` or `custom`)
+- ```contentScaleMode``` - configures the scaling (default `ScaleAspectFit`)
+- ```draggingEnabled``` - enables dragging (default `true`)
 - ```currentPageChanged``` - closure called on page change
-- ```preload``` - image preloading configuration (all images are preloaded by default)
+- ```willBeginDragging``` - closure called on scrollViewWillBeginDragging
+- ```didEndDecelerating``` - closure called on scrollViewDidEndDecelerating
+- ```preload``` - image preloading configuration (default `all` preloading, also `fixed`)
 
 ### Full Screen view
 
@@ -100,7 +104,7 @@ func didTap() {
 
 ## 👤 Author
 
-Petr Zvoníček
+Petr Zvoníček
 
 ## 📄 License
 
@@ -108,6 +112,6 @@ ImageSlideshow is available under the MIT license. See the LICENSE file for more
 
 ## 👀 References
 
-Inspired by projects: 
+Inspired by projects:
 - https://github.com/gonzalezreal/Vertigo
 - https://github.com/kimar/KIImagePager
