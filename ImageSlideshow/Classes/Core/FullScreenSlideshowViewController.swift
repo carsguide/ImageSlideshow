@@ -86,13 +86,9 @@ open class FullScreenSlideshowViewController: UIViewController {
         if let pageSelected = pageSelected {
             pageSelected(slideshow.currentPage)
         }
-<<<<<<< HEAD
         
         UIDevice.current.setValue(Int(UIInterfaceOrientation.portrait.rawValue), forKey: "orientation");
         
-=======
-
->>>>>>> zvonicek/master
         dismiss(animated: true, completion: nil)
     }
 }
