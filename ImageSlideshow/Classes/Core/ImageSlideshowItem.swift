@@ -38,8 +38,6 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
     */
     init(image: InputSource, zoomEnabled: Bool) {
         
-        super.init(frame: CGRect.null)
-        
         self.zoomEnabled = zoomEnabled
         self.image = image
         self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray);
@@ -47,6 +45,8 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
+        
+        super.init(frame: CGRect.null)
 
         setPictoCenter()
 
