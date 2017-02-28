@@ -23,13 +23,9 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
 
     /// If set to true image is initially zoomed in
     open var zoomInInitially = false
-<<<<<<< HEAD
     
     open var spinner: UIActivityIndicatorView
-    
-=======
 
->>>>>>> zvonicek/master
     fileprivate var lastFrame = CGRect.zero
     fileprivate var imageReleased = false
 
@@ -41,16 +37,13 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         - parameter zoomEnabled: holds if it should be possible to zoom-in the image
     */
     init(image: InputSource, zoomEnabled: Bool) {
+        
+        super.init(frame: CGRect.null)
+        
         self.zoomEnabled = zoomEnabled
         self.image = image
-<<<<<<< HEAD
         self.spinner = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray);
         self.spinner.hidesWhenStopped = true;
-        
-=======
-
->>>>>>> zvonicek/master
-        super.init(frame: CGRect.null)
 
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -196,15 +189,11 @@ open class ImageSlideshowItem: UIScrollView, UIScrollViewDelegate {
         intendVertical = intendVertical > 0 ? intendVertical : 0
         contentInset = UIEdgeInsets(top: intendVertical, left: intendHorizon, bottom: intendVertical, right: intendHorizon)
     }
-<<<<<<< HEAD
     
     fileprivate func setSpinnerToCenter() {
         self.spinner.frame = CGRect(x: screenSize().width/2 - 18 , y: self.imageView.frame.height/2 - 18, width: 35, height: 35);
     }
     
-=======
-
->>>>>>> zvonicek/master
     private func isFullScreen() -> Bool {
         return imageView.frame.width >= screenSize().width && imageView.frame.height >= screenSize().height
     }
