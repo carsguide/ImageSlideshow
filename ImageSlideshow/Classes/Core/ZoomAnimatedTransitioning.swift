@@ -174,7 +174,7 @@ extension ZoomInAnimator: UIViewControllerAnimatedTransitioning {
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         // Pauses slideshow
-        self.referenceSlideshowView?.pauseTimerIfNeeded()
+        self.referenceSlideshowView?.pauseTimer()
 
         let containerView = transitionContext.containerView
         let fromViewController = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
@@ -303,16 +303,15 @@ extension ZoomOutAnimator: UIViewControllerAnimatedTransitioning {
         }
         let completion = { (_: Any) in
             let completed = !transitionContext.transitionWasCancelled
+            self.referenceImageView?.alpha = 1
 
             if completed {
-                self.referenceImageView?.alpha = 1
                 fromViewController.view.removeFromSuperview()
                 UIApplication.shared.keyWindow?.removeGestureRecognizer(self.parent.gestureRecognizer)
                 // Unpauses slideshow
-                self.referenceSlideshowView?.unpauseTimerIfNeeded()
+                self.referenceSlideshowView?.unpauseTimer()
             } else {
                 fromViewController.view.isHidden = false
-                self.referenceImageView?.alpha = 0
             }
 
             transitionView.removeFromSuperview()
