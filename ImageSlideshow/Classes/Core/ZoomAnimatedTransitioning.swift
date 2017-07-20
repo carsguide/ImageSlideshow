@@ -81,13 +81,13 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
                     pageSelected(referenceSlideshowController.slideshow.currentPage)
                 }
 
-                interactionController?.finish()
+                interactionController?.cancel()
             } else if percent > 0.5 {
                 if let pageSelected = referenceSlideshowController.pageSelected {
                     pageSelected(referenceSlideshowController.slideshow.currentPage)
                 }
 
-                interactionController?.finish()
+                interactionController?.cancel()
 
             } else {
                 interactionController?.cancel()
